@@ -3,11 +3,7 @@ $base_path = "../";
 ob_start();
 include '../header.php';
 $header = ob_get_clean();
-
-// Inject <base href="/eduhyd/"> after <head>
 $header = str_replace('<head>', '<head><base href="/eduhyd/">', $header);
-
-// Output modified header
 echo $header;
 include '../connect.php';
 
@@ -19,7 +15,6 @@ if (!isset($_GET['id'])) {
 $id = $_GET['id'];
 $error = "";
 
-// Get subject
 $stmt = $conn->prepare("SELECT * FROM subjects WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();

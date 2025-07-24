@@ -23,19 +23,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $address = $_POST['company_address'];
     $status = $_POST['status'];
 
-    // Check for duplicate company code
     $checkCode = $conn->query("SELECT * FROM company_master WHERE company_code='$code'");
     if ($checkCode && $checkCode->num_rows > 0) {
         $error = 'Company Code already exists!';
     }
 
-    // Check for duplicate contact
     $checkContact = $conn->query("SELECT * FROM company_master WHERE contact='$contact'");
     if (!$error && $checkContact && $checkContact->num_rows > 0) {
         $error = 'Contact Number already exists!';
     }
 
-    // Check for duplicate website
     $checkWebsite = $conn->query("SELECT * FROM company_master WHERE company_website='$website'");
     if (!$error && $checkWebsite && $checkWebsite->num_rows > 0) {
         $error = 'Company Website already exists!';
@@ -46,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Company Email already exists!';
     }
 
-    // If no errors, insert the record
     if (!$error) {
         $insert = "INSERT INTO company_master (company_code, company_name, contact, email, company_website, company_address, status)
                    VALUES ('$code', '$name', '$contact', '$email', '$website', '$address', 'active')";

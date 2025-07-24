@@ -23,12 +23,10 @@ if (!empty($searchAddress)) {
     $where .= " AND branch_address LIKE '%$searchAddress%'";
 }
 
-// Pagination setup
 $limit = 2;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
-// Get total records count for pagination
 $totalQuery = "SELECT COUNT(*) AS total FROM branch_master $where";
 $totalResult = mysqli_query($conn, $totalQuery);
 $totalRow = mysqli_fetch_assoc($totalResult);

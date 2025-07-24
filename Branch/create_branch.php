@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $branch_contact = $_POST['contact'];
     $branch_address = $_POST['branch_address'];
 
-    // Unique validation
     $query = "SELECT * FROM branch_master WHERE branch_code = '$branch_code' OR email = '$branch_email' OR contact = '$branch_contact'";
     $result = mysqli_query($conn, $query);
 

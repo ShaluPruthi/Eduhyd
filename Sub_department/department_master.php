@@ -11,7 +11,6 @@ $limit = 10;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
-// Get total records count for pagination
 $totalQuery = "SELECT COUNT(*) AS total FROM sub_department_master WHERE active = 1";
 $totalResult = mysqli_query($conn, $totalQuery);
 $totalRow = mysqli_fetch_assoc($totalResult);
@@ -264,8 +263,6 @@ $basePath = "/eduhyd/Sub_department/department_master.php";
         });
 
         document.getElementById("noDataRow").style.display = visibleCount === 0 ? "" : "none";
-
-        // Optional: Reset to first page after filtering
         currentPage = 1;
         showPage(currentPage);
     }

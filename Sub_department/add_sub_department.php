@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $address = $_POST['address'];
 
-    // Check if sub_department_code or contact or email already exists
     $checkQuery = "SELECT * FROM sub_department_master WHERE code='$code' OR contact='$contact' OR email='$email'";
     $checkResult = mysqli_query($conn, $checkQuery);
 

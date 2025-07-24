@@ -9,8 +9,6 @@ $header = str_replace('<head>', '<head><base href="/eduhyd/">', $header);
 echo $header;
 include_once("../connect.php");
 
-
-//delete
 if (isset($_GET['delete_id'])) {
     $delete_id = intval($_GET['delete_id']);
     $delete_sql = "DELETE FROM transport_assignments WHERE id = $delete_id";

@@ -7,16 +7,11 @@ $base_path = "../";
 ob_start();
 include '../header.php';
 $header = ob_get_clean();
-
-// Inject <base href="/eduhyd/"> after <head>
 $header = str_replace('<head>', '<head><base href="/eduhyd/">', $header);
-
-// Output modified header
 echo $header;
 include '../connect.php';
 global $conn;
 
-// Handle Delete Operation
 if (isset($_GET['delete_id'])) {
     $delete_id = $_GET['delete_id'];
     $conn->query("DELETE FROM education WHERE staff_id = $delete_id");
@@ -25,16 +20,13 @@ if (isset($_GET['delete_id'])) {
     exit();
 }
 
-// Pagination Logic
-$limit = 10; // number of records per page
+$limit = 10; 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $start_from = ($page - 1) * $limit;
 
-// Fetch data with limit
 $query = "SELECT * FROM staff ORDER BY id DESC LIMIT $start_from, $limit";
 $data = mysqli_query($conn, $query);
 
-// Count total records
 $total_query = "SELECT COUNT(*) FROM staff";
 $total_result = mysqli_query($conn, $total_query);
 $total_row = mysqli_fetch_row($total_result);

@@ -7,13 +7,11 @@ echo $header;
 
 include "../connect.php"; 
 
-// Deactivate logic
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
     $update = "UPDATE sub_department_master SET active = 0 WHERE id = $id";
     mysqli_query($conn, $update);
 
-    // Optional: Alert and redirect back to list
     echo "<script>
         alert('Sub-department deactivated successfully.');
         window.location.href = 'Sub_department/deactivate_sub_department.php';
@@ -21,7 +19,6 @@ if (isset($_GET['id'])) {
     exit();
 }
 
-// Fetch all deactivated sub-departments
 $query = "SELECT * FROM sub_department_master WHERE active = 0 ORDER BY id DESC";
 $result = mysqli_query($conn, $query);
 ?>

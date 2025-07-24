@@ -13,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $start_date = $_POST['from_date'];
     $end_date = $_POST['to_date'];
 
-    // Check if year already exists
     $check = mysqli_query($conn, "SELECT * FROM financial_year_master WHERE year_range='$financial_year'");
     if (mysqli_num_rows($check) > 0) {
         echo "<script>alert('Financial year already exists.'); window.location.href='FinancialYear/financial_master.php';</script>";
@@ -32,14 +31,12 @@ $limit = 5;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
-// Get total records count for pagination
 $totalQuery = "SELECT COUNT(*) AS total FROM financial_year_master WHERE active = 1";
 $totalResult = mysqli_query($conn, $totalQuery);
 $totalRow = mysqli_fetch_assoc($totalResult);
 $totalRecords = $totalRow['total'];
 $totalPages = ceil($totalRecords / $limit);
 
-// Deactivate logic
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
     $updateQuery = "UPDATE financial_year_master SET active = 0 WHERE id = $id";
@@ -80,7 +77,6 @@ $records = mysqli_query($conn, $query);
                         <select class="form-select" name="year_range" id="year_range" required>
                         <option value="">Select Financial Year</option>
                         <?php
-                            // Dynamically generate financial years (e.g., from 2020-21 to 2030-31)
                             $startYear = 2020;
                             $endYear = 2030;
                             for ($i = $startYear; $i <= $endYear; $i++) {
@@ -217,7 +213,6 @@ $basePath = "/eduhyd/FinancialYear/financial_master.php";
             });
         }
 
-        // Show initial data
         displayTable();
     </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">

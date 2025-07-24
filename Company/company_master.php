@@ -21,12 +21,11 @@ if ($searchName !== '') {
 
 $result = mysqli_query($conn, $sql);
 $total = mysqli_num_rows($result);
-// Pagination setup
+
 $limit = 2;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
-// Get total records count for pagination
 $totalQuery = "SELECT COUNT(*) AS total FROM company_master WHERE status = 'active'";
 $totalResult = mysqli_query($conn, $totalQuery);
 $totalRow = mysqli_fetch_assoc($totalResult);

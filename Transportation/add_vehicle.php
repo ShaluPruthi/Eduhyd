@@ -3,11 +3,8 @@ $base_path = "../";
 ob_start();
 include '../header.php';
 $header = ob_get_clean();
-
-// Inject <base href="/eduhyd/"> after <head>
 $header = str_replace('<head>', '<head><base href="/eduhyd/">', $header);
 
-// Output modified header
 echo $header;
 include_once("../connect.php");
 
@@ -16,7 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $vehicle_name = trim($_POST["vehicle_name"]);
     $driver_name = trim($_POST["driver_name"]);
 
-    // Check for duplicates
     $stmt = $conn->prepare("SELECT * FROM vehicles WHERE vehicle_no = ?");
     $stmt->bind_param("s", $vehicle_no);
     $stmt->execute();

@@ -18,7 +18,6 @@ if (isset($_GET['delete'])) {
     echo "<script>alert('Assignment deleted successfully'); window.location.href='view_assignment.php';</script>";
 }
 
-// Fetch assignments
 $sql = "SELECT * FROM assignments ORDER BY id DESC";
 $result = $conn->query($sql);
 ?>

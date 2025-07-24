@@ -4,21 +4,17 @@ ob_start();
 include '../header.php';
 $header = ob_get_clean();
 
-// Inject <base href="/eduhyd/"> after <head>
 $header = str_replace('<head>', '<head><base href="/eduhyd/">', $header);
 
-// Output modified header
 echo $header;
 include_once("../connect.php");
 
-// Assigning transportation
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $student_id = $_POST['student_id'];
     $vehicle_id = $_POST['vehicle_id'];
     $from_date = $_POST['from_date'];
     $to_date = $_POST['to_date'];
 
-    // Check if student exists before inserting
     $checkStudent = $conn->prepare("SELECT id FROM students WHERE id = ?");
     $checkStudent->bind_param("i", $student_id);
     $checkStudent->execute();

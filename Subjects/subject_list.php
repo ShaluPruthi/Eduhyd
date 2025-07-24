@@ -3,14 +3,11 @@ $base_path = "../";
 ob_start();
 include '../header.php';
 $header = ob_get_clean();
-
-// Inject <base href="/eduhyd/"> after <head>
 $header = str_replace('<head>', '<head><base href="/eduhyd/">', $header);
 echo $header;
 
 include("../connect.php");
 
-// Handle Delete Request
 if (isset($_GET['delete_id'])) {
     $delete_id = intval($_GET['delete_id']);
     $conn->query("DELETE FROM subjects WHERE id = $delete_id");
@@ -18,7 +15,6 @@ if (isset($_GET['delete_id'])) {
     exit;
 }
 
-// Pagination Logic
 $limit = 5;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $offset = ($page - 1) * $limit;
@@ -29,7 +25,6 @@ $total_row = $total_result->fetch_assoc();
 $total_records = $total_row['total'];
 $total_pages = ceil($total_records / $limit);
 
-// Fetch paginated subjects
 $sql = "SELECT * FROM subjects ORDER BY id DESC LIMIT $limit OFFSET $offset";
 $result = $conn->query($sql);
 ?>

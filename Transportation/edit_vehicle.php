@@ -16,7 +16,6 @@ if (!$vehicle_id) {
     exit;
 }
 
-// Fetch existing data
 $sql = "SELECT * FROM vehicles WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $vehicle_id);
@@ -29,7 +28,6 @@ if (!$vehicle) {
     exit;
 }
 
-// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $vehicle_number = trim($_POST["vehicle_number"]);
     $vehicle_name = trim($_POST["vehicle_name"]);

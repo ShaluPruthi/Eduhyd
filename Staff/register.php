@@ -3,16 +3,11 @@ $base_path = "../";
 ob_start();
 include '../header.php';
 $header = ob_get_clean();
-
-// Inject <base href="/eduhyd/"> after <head>
 $header = str_replace('<head>', '<head><base href="/eduhyd/">', $header);
-
-// Output modified header
 echo $header;
 include_once('../connect.php');
 global $conn;
 
-// Upload file function
 function uploadFile($file, $destinationFolder) {
     if (!empty($file['name'])) {
         if (!file_exists($destinationFolder)) {
@@ -29,7 +24,6 @@ function uploadFile($file, $destinationFolder) {
 
 if (isset($_POST['submit'])) {
 
-    // Personal Information
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
     $email = $_POST['email'];
@@ -41,7 +35,6 @@ if (isset($_POST['submit'])) {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $jdate = $_POST['jdate'];
 
-    // Bank Information
     $bank_name = $_POST['bank_name'];
     $branch_name = $_POST['branch_name'];
     $acnt_number = $_POST['acnt_number'];
@@ -51,7 +44,6 @@ if (isset($_POST['submit'])) {
     $aadhar = $_POST['aadhar'];
     $upi = $_POST['upi'];
 
-    // Upload Documents
     $resume = uploadFile($_FILES['resume'], 'uploads/resumes/');
     $photo = uploadFile($_FILES['photo'], 'uploads/photos/');
     $dmc = uploadFile($_FILES['dmc'], 'uploads/dmc_12th/');
@@ -59,7 +51,6 @@ if (isset($_POST['submit'])) {
     $signature = uploadFile($_FILES['signature'], 'uploads/signatures/');
     $other = uploadFile($_FILES['other'], 'uploads/other/');
 
-    // Insert into staff table
     $query = "INSERT INTO staff 
     (fname, lname, email, phone, aphone, gender, dob, address, password, jdate,
      bank_name, branch_name, acnt_number, acnt_type, ifsc, pan, aadhar, upi,
@@ -76,7 +67,6 @@ if (isset($_POST['submit'])) {
     if($stmt->execute()) {
         $staff_id = $stmt->insert_id;
 
-        // Insert Educational Records
         for ($i = 0; $i < count($_POST['qualification']); $i++) {
             $qualification = $_POST['qualification'][$i];
             $specialization = $_POST['specialization'][$i];

@@ -3,11 +3,7 @@ $base_path = "../";
 ob_start();
 include '../header.php';
 $header = ob_get_clean();
-
-// Inject <base href="/eduhyd/"> after <head>
 $header = str_replace('<head>', '<head><base href="/eduhyd/">', $header);
-
-// Output modified header
 echo $header;
 include '../connect.php';
 global $conn;

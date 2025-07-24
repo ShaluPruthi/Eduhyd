@@ -18,7 +18,6 @@ if (isset($_GET['id'])) {
     $stmt->execute();
 }
 
-// Fetch deactivated branches
 $sql = "SELECT * FROM branch_master WHERE active = 0";
 $result = $conn->query($sql);
 ?>

@@ -3,22 +3,14 @@ $base_path = "../";
 ob_start();
 include '../header.php';
 $header = ob_get_clean();
-
-// Inject <base href="/eduhyd/"> after <head>
 $header = str_replace('<head>', '<head><base href="/eduhyd/">', $header);
 
-// Output modified header
 echo $header;
-
-
 include("../connect.php");
-
-// Handle form submission
 $message = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $subject_name = trim($_POST["subject_name"]);
 
-    // Check for uniqueness
     $check_sql = "SELECT * FROM subjects WHERE subject_name = ?";
     $stmt = $conn->prepare($check_sql);
     $stmt->bind_param("s", $subject_name);

@@ -11,7 +11,6 @@ include "../connect.php";
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     
-    // Update the 'active' field to 0 (deactivated)
     $query = "UPDATE financial_year_master SET active = 0 WHERE id = $id";
     $result = mysqli_query($conn, $query);
 
@@ -25,7 +24,6 @@ if (isset($_GET['id'])) {
     echo "Invalid request!";
 }
 
-// Fetch deactivated records
 $query = "SELECT * FROM financial_year_master WHERE active = 0 ORDER BY id DESC";
 $records = mysqli_query($conn, $query);
 ?>
