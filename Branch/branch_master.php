@@ -8,39 +8,37 @@ echo $header;
 
 include "../connect.php";
 
-$searchCode = $_GET['code'] ?? '';
-$searchName = $_GET['name'] ?? '';
-$searchAddress = $_GET['address'] ?? '';
+$searchCode = isset($_GET['branch_code']) ? trim($_GET['branch_code']) : '';
+$searchName = isset($_GET['branch_name']) ? trim($_GET['branch_name']) : '';
+$searchAddress = isset($_GET['branch_address']) ? trim($_GET['branch_address']) : '';
 
-$query = "SELECT * FROM branch_master WHERE active = 1";
-
+$where = "WHERE active = 1";
 if (!empty($searchCode)) {
-    $query .= " AND branch_code LIKE '%$searchCode%'";
+    $where .= " AND branch_code LIKE '%$searchCode%'";
 }
 if (!empty($searchName)) {
-    $query .= " AND branch_name LIKE '%$searchName%'";
+    $where .= " AND branch_name LIKE '%$searchName%'";
 }
 if (!empty($searchAddress)) {
-    $query .= " AND branchc_address LIKE '%$searchAddress%'";
+    $where .= " AND branch_address LIKE '%$searchAddress%'";
 }
 
-$result = mysqli_query($conn, $query);
-$total = mysqli_num_rows($result);
-
 // Pagination setup
-$limit = 10;
+$limit = 2;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
 // Get total records count for pagination
-$totalQuery = "SELECT COUNT(*) AS total FROM branch_master WHERE active = 1";
+$totalQuery = "SELECT COUNT(*) AS total FROM branch_master $where";
 $totalResult = mysqli_query($conn, $totalQuery);
 $totalRow = mysqli_fetch_assoc($totalResult);
 $totalRecords = $totalRow['total'];
 $totalPages = ceil($totalRecords / $limit);
 
-$query = "SELECT * FROM branch_master WHERE active = 1 ORDER BY id DESC LIMIT $offset, $limit";
+$query = "SELECT * FROM branch_master $where ORDER BY id DESC LIMIT $offset, $limit";
 $records = mysqli_query($conn, $query);
+$total = mysqli_num_rows($records);
+
 ?>
 
 <!DOCTYPE html>
@@ -153,7 +151,7 @@ $records = mysqli_query($conn, $query);
 
     <!-- Pagination -->
 <?php
-$basePath = "/eduhyd/Branch/branch_master.php"; // ✅ Your new fixed path
+$basePath = "/eduhyd/Branch/branch_master.php";
 ?>
 <div class="pagination text-center mt-3">
     <nav>

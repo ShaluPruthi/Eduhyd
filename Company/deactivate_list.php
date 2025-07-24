@@ -49,7 +49,7 @@ $result = $conn->query($sql);
     </style>
 </head>
 <body>
-<div class="container" style="margin-top:100px; max-width:1000px;">
+<div class="container" style="margin-top:100px; max-width:1400px;">
     <div class="container-box">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="header-title">Deactivated Companies</h2>
